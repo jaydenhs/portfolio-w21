@@ -14,6 +14,7 @@ const FigmaEmbed = ({ title, src, hideUI }) => {
 
 const FigmaIFrame = styled.iframe`
   ${tw`w-full h-screen rounded-b-sm`}
+  max-height: 720px;
 `;
 
 export default FigmaEmbed;
