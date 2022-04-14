@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   body {
     box-sizing: border-box;
-    font-family: "Proxima Nova", "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial, sans-serif;
+    font-family: 'Proxima Nova', 'Open Sans', 'Gill Sans MT', 'Gill Sans', Corbel, Arial, sans-serif;
     background: var(--background);
     color: var(--text);
   }

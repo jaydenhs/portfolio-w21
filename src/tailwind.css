@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'ProximaNova';
+  font-family: 'Proxima Nova';
   src: url('../static/fonts/proxima-nova-regular.otf') format('opentype');
   font-weight: normal;
 }
 
 @font-face {
-  font-family: 'ProximaNova';
+  font-family: 'Proxima Nova';
   src: url('../static/fonts/proxima-nova-bold.otf') format('opentype');
   font-weight: bold;
 }
