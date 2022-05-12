@@ -83,8 +83,14 @@ const Hero = () => {
             Systems Design Engineering student at the University of Waterloo.
           </div>
           <div>
-            Previously a Product Designer at <AutoLink to="https://structionsite.com/">StructionSite</AutoLink>, <AutoLink to="https://tdlab.io/">TD Bank</AutoLink>, and <AutoLink to="https://www.ontario.ca/page/ontario-digital-service">the Ontario
-            Digital Service</AutoLink>.
+            Previously at{' '}
+            <AutoLink to="https://shopify.dev/">Shopify</AutoLink>,{' '}
+            <AutoLink to="https://structionsite.com/">StructionSite</AutoLink>,{' '}
+            <AutoLink to="https://tdlab.io/">TD Bank</AutoLink>, and the{' '}
+            <AutoLink to="https://www.ontario.ca/page/ontario-digital-service">
+              Ontario Digital Service
+            </AutoLink>
+            .
           </div>
         </Details>
       </div>
