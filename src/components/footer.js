@@ -18,7 +18,7 @@ const Footer = () => {
         })}
       </div>
       <p className="text-gray-500 mb-1.5">
-        Designed and developed with love 🖤💛 © Jayden Hsiao 2021
+        Designed and developed with love 🖤💛 © Jayden Hsiao 2022
       </p>
       <p className="text-gray-300 mb-1">
         (love as in Figma, GatsbyJS, GraphQL, Markdown JSX, TailwindCSS,

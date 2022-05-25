@@ -11,7 +11,7 @@ const Quote = ({ children }) => {
 };
 
 const QuoteText = styled.blockquote`
-  ${tw`text-primary text-2xl leading-relaxed mb-8 pt-28`}
+  ${tw`text-primary text-xl leading-relaxed mb-8 pt-24`}
 
   &:before {
     content: '';
@@ -21,7 +21,7 @@ const QuoteText = styled.blockquote`
 
   &:after {
     content: '❞';
-    ${tw`rounded-full text-background bg-primary opacity-60 text-6xl w-24 h-24 text-center absolute left-1/2 transform -translate-x-1/2 top-0 pt-8`}
+    ${tw`rounded-full text-background bg-primary opacity-60 text-5xl w-16 h-16 text-center absolute left-1/2 transform -translate-x-1/2 top-4 pt-5`}
   }
 `;
 

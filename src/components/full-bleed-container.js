@@ -1,7 +1,7 @@
 import React from 'react';
 
-const FullBleed = ({ children }) => {
-  return <div className="full-bleed">{children}</div>;
+const FullBleed = ({ children, ...rest }) => {
+  return <div className="full-bleed" {...rest}>{children}</div>;
 };
 
 export default FullBleed;

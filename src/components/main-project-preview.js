@@ -7,45 +7,44 @@ import AutoLink from '@components/auto-link';
 export default function MainProjectPreview({
   project: {
     frontmatter: {
+      role,
+      company,
       title,
       slug,
-      description,
-      tags,
       thumbnail,
-      videoWidth,
-      detailsWidth,
+      backgroundHex
     },
   },
 }) {
-  // set half and half defaults if no class is provided, can't use default prop values in destructuring since gql assigns missing fields null, not undefined
-  videoWidth ??= 'w-1/2';
-  detailsWidth ??= 'w-1/2';
 
   return (
     <ProjectCard to={`${slug}`}>
-      <Wave />
-      <Details className={detailsWidth}>
-        <h3 className="mb-1.5">{title}</h3>
-        {/* <p className="uppercase text-md mb-2.5">
-          <b>{category}</b> <span className="px-0.5">•</span>
-          {tags}
-        </p> */}
-        <p>{description}</p>
-      </Details>
-      <div className="mx-2" />
-      <VideoWrapper className={videoWidth}>
-        <Image src={thumbnail} />
+      <VideoWrapper style={{backgroundColor: backgroundHex}}>
+        <Image
+          className="w-full h-full mx-auto p-8"
+          src={thumbnail}
+          figureClassName="w-full h-full"
+          imgStyle={{ objectFit: 'contain', padding: '2rem' }}
+        />
       </VideoWrapper>
+      <div className="px-10 py-6 flex items-center justify-between w-full">
+          <div className="flex flex-col whitespace-nowrap mr-16">
+            <p className="text-lg">{role}</p>
+            <h3 className="text-3xl">{company}</h3>
+          </div>
+          <p className="w-1/2 text-lg">{title}</p>
+        </div>
     </ProjectCard>
   );
 }
 
 const VideoWrapper = styled.div`
-  ${tw`z-10`}
+  ${tw`z-10 w-full flex items-center rounded-t-xl h-full`}
+  height: 40rem;
 `;
 
 const ProjectCard = styled(AutoLink)`
-  ${tw`px-11 py-6 w-full rounded-xl transition-all duration-500 transform no-underline flex odd:flex-row-reverse items-center max-h-screen bg-surface`}
+  ${tw`w-full rounded-xl transition-all duration-500 transform no-underline flex flex-col items-center bg-surface`}
   min-height: 36rem;
   box-shadow: 0px 10px 15px 0px var(--boxShadow1);
 
@@ -61,7 +60,7 @@ const ProjectCard = styled(AutoLink)`
 `;
 
 const Details = styled.div`
-  ${tw`flex flex-col z-10`}
+  ${tw`flex z-10 w-full`}
 `;
 
 const Wave = () => (

@@ -2,7 +2,6 @@ import React from 'react';
 import Image from '@utils/local-img';
 
 const PhotoLayout = ({ src_array }) => {
-  console.log({ src_array });
   return (
     <>
       {src_array.map((src, i) => {

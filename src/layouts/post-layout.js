@@ -36,7 +36,7 @@ const components = {
 export default function PostLayout({
   data: {
     mdx: {
-      frontmatter: { title, thumbnail, thumbnailOnPage },
+      frontmatter: { title, thumbnail, backgroundHex },
       body,
     },
   },
@@ -44,11 +44,18 @@ export default function PostLayout({
   return (
     <Layout title={title} maxWidth={false}>
       <Wrapper>
-        {thumbnailOnPage && (
-          <FullBleed>
-            <Image src={thumbnail} className="mx-auto w-2/3 mb-4" />
-          </FullBleed>
-        )}
+        <FullBleed
+          style={{ backgroundColor: backgroundHex, maxHeight: "calc(100vh - 64px)" }}
+          className="full-bleed px-8 py-10 mb-12"
+        >
+          <Image
+            src={thumbnail}
+            className="mx-auto w-auto max-h-full"
+            style={{ height: '40rem' }}
+            figureClassName="w-full h-full"
+            imgStyle={{ objectFit: 'contain' }}
+          />
+        </FullBleed>
         <h1>{title}</h1>
         <MDXProvider components={components}>
           <MDXRenderer>{body}</MDXRenderer>
@@ -66,7 +73,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         thumbnail
-        thumbnailOnPage
+        backgroundHex
       }
     }
   }

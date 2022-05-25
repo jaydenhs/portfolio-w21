@@ -65,16 +65,12 @@ export const pageQuery = graphql`
       edges {
         node {
           frontmatter {
+            role
+            company
             title
             slug
-            description
-            category
-            tags
             thumbnail
-            hidden
-
-            videoWidth
-            detailsWidth
+            backgroundHex
           }
         }
       }

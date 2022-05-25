@@ -1,0 +1,248 @@
+---
+role: 'Design Technology'
+company: 'Shopify'
+title: 'Prototyping the developer documentation search experience'
+slug: '/shopify'
+section: 'Main'
+rank: '1'
+hidden: false
+
+thumbnail: 'shopify/images/thumbnail.webm'
+backgroundHex: '#95BC37'
+---
+
+import Image from '@utils/local-img';
+
+import FullBleed from '@components/full-bleed-container';
+import AutoLink from '@components/auto-link';
+import Note from '@components/note';
+import Accordion from '@components/accordion';
+import Learning from '@components/learning';
+import FigmaEmbed from '@components/figma-embed';
+import HighlightedSection from '@components/highlighted-section';
+import NumberedList from '@components/numbered-list';
+import FeatureGIFs from '@components/feature-gif';
+
+| Role              | Team               | Duration              |
+| ----------------- | ------------------ | --------------------- |
+| Design technology | 1 product manager  | February - April 2022 |
+|                   | 1 product designer |                       |
+|                   | 1 content designer |                       |
+
+# Context
+
+In the winter of 2022, I was a design technologist intern at e-commerce Shopify.
+This case study focuses on my redesign of the on-site search experience
+on<AutoLink to="https://shopify.dev/"> shopify.dev</AutoLink>, a documentation
+site that empowers third-party developers to build Shopify apps and stores.
+
+This is what the current on-site search experience looked like:
+
+<FullBleed>
+  <Image
+    src={'shopify/images/current-site.webm'}
+    className="mt-3 mb-2 mx-auto w-11/12 rounded-t-xl"
+    caption="The current shopify.dev on-site search experience"
+  />
+</FullBleed>
+
+Third-party developers found the current search experience **clunky and
+irrelevant**.
+
+> Your search functionality is awful. I use Google instead of your built-in
+> search bar to search the docs. It needs some tender love and care.
+>
+> <br />
+>
+> – a third-party Shopify developer
+
+This led to **only 0.5% of daily users using our on-site search**.
+
+<FullBleed>
+  <Image
+    src="search-usage.png"
+    caption="The percentage of daily users using our on-site search fluctuated around 0.5%"
+    className="mt-3 mb-2 mx-auto w-2/3"
+  />
+</FullBleed>
+
+# The Problem
+
+<HighlightedSection>
+
+With shopify.dev containing thousands of pages, the **inefficiency of our
+on-site search** resulted in third-party developers being unable to find key API
+resources quickly. This led to **decreased Shopify app ecosystem productivity**.
+
+</HighlightedSection>
+
+# Understanding the Infrastructure
+
+First, I dove deep into understanding the current technical infrastructure.
+
+Through this, I diagnosed foundational problems with how the backend was
+serializing content. **We were giving messy information to our search engine
+(ElasticSearch), and had terrible result relevancy as a result.**
+
+<FullBleed>
+  <Image
+    src="search-serialization.png"
+    caption="Useful information presented on our pages was being buried underneath clutter in our search backend"
+    className="mt-3 mb-2 mx-auto w-5/6"
+  />
+</FullBleed>
+
+This deep-dive also helped me set a shared understanding in my team of how our
+search currently works.
+
+# Defining UX Principles
+
+Our design team started defining principles and solutions based on our
+assumptions. But we were stopped by our product manager, who **questioned what
+evidence these decisions were being based on.**
+
+So we took a step back, and interviewed eight third-party developers. Based on
+the frequency and intensity of their feedback, we defined the UX principles of
+our search:
+
+<NumberedList
+  data={[
+    {
+      title: 'Design search results for scannability',
+      description:
+        'Currently, developers had to manually parse through cluttered descriptions and breadcrumbs to determine the best search result. Scannable results help developers quickly determine the best option for their use case.',
+    },
+    {
+      title: 'Filtered search for the win',
+      description:
+        'For a continuously-expanding information site like shopify.dev, providing developers the ability to narrow a large set of results down is critical.',
+    },
+    {
+      title: 'Personalize the experience',
+      description:
+        'Developers only cared about the one or two APIs used in their work. By saving their filters, our on-site search experience would be more frictionless.',
+    },
+  ]}
+/>
+
+# Wireframing
+
+Following a competitive analysis and low-fidelity designs, I collaborated with
+our senior product designer and content designer to create high-fidelity Figma
+wireframes based on our principles:
+
+<FullBleed>
+  <Image
+    src="search-modal.jpg"
+    caption="The high-fidelity search modal mockup our team created"
+    className="mt-3 mb-2 mx-auto w-full"
+  />
+</FullBleed>
+
+# Prototyping Filtered Search
+
+**I created a prototype in our production codebase with Vanilla JavaScript,
+React, Ruby on Rails, and ElasticSearch in parallel.**
+
+I focused on designing the interaction-heavy filtering experiences that couldn't
+easily be replicated in Figma, and would benefit the most from being
+experimented with in a production environment.
+
+Here's what my prototype looked like:
+
+<FullBleed>
+  <FeatureGIFs
+    data={[
+      {
+        src: 'shopify/images/using-tabs.webm',
+        title: 'Filter-by-category tabs',
+        description:
+          "Based on the search query, the search modal would display category-specific tabs. On click, the tabs would display results from that category. A mixture of results would be displayed by default in the 'All' tab.",
+      },
+      {
+        src: 'shopify/images/dynamic-tabs.webm',
+        title: 'Dynamic tab positioning',
+        description:
+          'These tabs would be dynamically ordered from left-to-right based on the relevance of their respective categories.',
+      },
+      {
+        src: 'shopify/images/filter-checkboxes.webm',
+        title: 'Personalized filters',
+        description:
+          'The search modal would also enable developers to view content only from selected categories. This helped developers focus on results for the Shopify APIs of their current project.',
+      },
+      {
+        src: 'shopify/images/filter-cookies.webm',
+        title: 'Saving filters',
+        description:
+          'Even after navigating to away from the page, selected filters were preserved using cookies.',
+      },
+      {
+        src: 'shopify/images/filter-clear-all.webm',
+        title: 'Clearing filters',
+        description:
+          'If a developer wanted to remove their filters, they could clear them in one click.',
+      },
+    ]}
+  />
+</FullBleed>
+
+# Defining Edge Cases
+
+Prototyping with code also forced our design team to solve edge cases we hadn't
+accounted for.
+
+For example, to limit the length of the 'All (results)' tab, we truncated the
+search results displayed in each section. After experimenting with different
+algorithms, our design team chose the path that best complimented the
+functionality in our designs.
+
+<FullBleed>
+  <Image
+    src={'shopify/images/es-truncation.webm'}
+    className="mt-3 mb-2 mx-auto w-7/12"
+    captionClassName="w-1/2"
+    caption="Results below the score threshold (highlighted in red) were retained to preserve 'View all results' functionality"
+  />
+</FullBleed>
+
+# Implementing for the Keyboard
+
+Another strength of coded prototypes is that it enabled our design team to
+design keyboard navigation, a feature required for developers.
+
+Here's what opening, navigating, and selecting in the search modal looked like:
+
+<FullBleed>
+  <Image
+    src={'shopify/images/keyboard-accessibility.webm'}
+    className="mt-3 mb-2 mx-auto w-7/12"
+    captionClassName="w-1/2"
+    caption="Interactions were linked to / (open search bar), arrow keys (result navigation), Esc (close search bar), and ↩ (open selected result)"
+  />
+</FullBleed>
+
+# Next Steps
+
+After I handed the prototype off to the lead developer, the team started
+building for production.
+
+Since the coded prototype derisks developer handoff, we expect **the new search
+experience should be shipped by Fall 2022**.
+
+# Learnings
+
+<NumberedList
+  data={[
+    {
+      title: "Don't operate on assumptions",
+      description:
+        'Our team got too excited and made the mistake of defining UX principles before research. Had we not talked to developers, we would’ve not solved their biggest pain points. If I was to do this project again, I would start with research.',
+    },
+    {
+      title: 'Prototyping is so, so rewarding',
+      description:
+        'It is _so_ empowering to prototype interaction-heavy experiences that would otherwise be impossible to create with traditional design software. The level of clarity it can bring to stakeholder conversations and user testing is unmatched.',
+    },
+  ]}
+/>
